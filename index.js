@@ -1,29 +1,30 @@
-var nconf = require('nconf')
-var bodyParser = require('body-parser')
-var dataUriToBuffer = require('data-uri-to-buffer')
-var glitch = require('glitch-jpg')
-var express = require('express')
-var app = express()
-
-nconf.argv().env().file({ file: 'local.json'})
-
-app.use(bodyParser.json({limit: '2mb'}))
-app.use(express.static(__dirname + '/public'))
-
-app.get('/', function(req, res) {
-  res.sendFile( __dirname + '/index.html')
-})
-
-
-app.post('/service', function(req, res) {
-  var imgBuff = dataUriToBuffer(req.body.content.data)
-  var glitched = glitch(imgBuff)
-  var dataUri = 'data:' + imgBuff.type + ';base64,' + glitched.toString('base64')
-  req.body.content.data = dataUri
-  req.body.content.type = imgBuff.type
-  res.json(req.body)
-})
-
-var port = nconf.get('port')
-app.listen(port)
-console.log('server running on port: ', port)
+var _ = undefined;
+var nconf = require('nconf');_;
+var bodyParser = require('body-parser');_;
+var dataUriToBuffer = require('data-uri-to-buffer');_;
+var glitch = require('glitch-jpg');_;
+var express = require('express');_;
+var app = express();_;
+;_;
+nconf.argv().env().file({ file: 'local.json'});_;
+;_;
+app.use(bodyParser.json({limit: '2mb'}));_;
+app.use(express.static(__dirname + '/public'));_;
+;_;
+app.get('/', function(req, res) {;_;
+  res.sendFile( __dirname + '/index.html');_;
+});_;
+;_;
+;_;
+app.post('/service', function(req, res) {;_;
+  var imgBuff = dataUriToBuffer(req.body.content.data);_;
+  var glitched = glitch(imgBuff);_;
+  var dataUri = 'data:' + imgBuff.type + ';base64,' + glitched.toString('base64');_;
+  req.body.content.data = dataUri;_;
+  req.body.content.type = imgBuff.type;_;
+  res.json(req.body);_;
+});_;
+;_;
+var port = nconf.get('port');_;
+app.listen(port);_;
+console.log('server running on port: ', port);_;
